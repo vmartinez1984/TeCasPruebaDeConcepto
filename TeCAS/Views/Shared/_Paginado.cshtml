@@ -1,0 +1,25 @@
+﻿@model TeCAS.Dtos.ListaDeClientesDto
+<div>
+    <ul class="pagination">
+        @if (Model.BusquedeDeCliente.PaginaActual == 1)
+        {
+            <li class="page-item disabled">
+                @Html.ActionLink("Anterior", null, new { pagina = 1 }, new { @class = "page-link" })
+            </li>
+        }
+        else
+        {
+            <li class="page-item">@Html.ActionLink("Anterior", null, new { pagina = Model.BusquedeDeCliente.PaginaActual - 1 }, new { @class = "page-link" })</li>
+        }
+
+        @if (Model.BusquedeDeCliente.PaginaActual == Model.BusquedeDeCliente.NumeroDePagina)
+        {
+            <li class="page-item disabled">@Html.ActionLink("Siguiente", null, new { pagina = Model.BusquedeDeCliente.PaginaActual }, new { @class = "page-link" })</li>
+        }
+        else
+        {
+            <li class="page-item">@Html.ActionLink("Siguiente", null, new { pagina = Model.BusquedeDeCliente.PaginaActual + 1 }, new { @class = "page-link" })</li>
+        }
+    </ul>
+</div>
+    Pagina actual: @Model.BusquedeDeCliente.PaginaActual Número de páginas: @Model.BusquedeDeCliente.NumeroDePagina
