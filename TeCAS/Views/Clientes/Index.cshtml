@@ -1,0 +1,84 @@
+﻿@model TeCAS.Dtos.ListaDeClientesDto
+
+@{
+    ViewData["Title"] = "Buscar cliente";
+}
+
+<h1>Buscar clientes</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BusquedeDeCliente.Nombre" class="control-label"></label>
+                <input asp-for="BusquedeDeCliente.Nombre" class="form-control" />
+                <span asp-validation-for="BusquedeDeCliente.Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BusquedeDeCliente.NumeroDeIdentificacion" class="control-label"></label>
+                <input asp-for="BusquedeDeCliente.NumeroDeIdentificacion" class="form-control" />
+                <span asp-validation-for="BusquedeDeCliente.NumeroDeIdentificacion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">
+                    Buscar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <h1>Lista de clientes</h1>
+    <hr />
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>@Html.DisplayNameFor(model=> model.ListaDeClientes[0].Id)</td>
+                <td>@Html.DisplayNameFor(model=> model.ListaDeClientes[0].Nombre)</td>
+                <td>@Html.DisplayNameFor(model=> model.ListaDeClientes[0].Paterno)</td>
+                <td>@Html.DisplayNameFor(model=> model.ListaDeClientes[0].Materno)</td>
+                <td>@Html.DisplayNameFor(model=> model.ListaDeClientes[0].Rfc)</td>
+                <td>@Html.DisplayNameFor(model=> model.ListaDeClientes[0].NumeroDeIdentificacion)</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td>@Html.DisplayNameFor(model=> model.ListaDeClientes[0].Id)</td>
+                <td>@Html.DisplayNameFor(model=> model.ListaDeClientes[0].Nombre)</td>
+                <td>@Html.DisplayNameFor(model=> model.ListaDeClientes[0].Paterno)</td>
+                <td>@Html.DisplayNameFor(model=> model.ListaDeClientes[0].Materno)</td>
+                <td>@Html.DisplayNameFor(model=> model.ListaDeClientes[0].Rfc)</td>
+                <td>@Html.DisplayNameFor(model=> model.ListaDeClientes[0].NumeroDeIdentificacion)</td>
+                <td></td>
+            </tr>
+        </tfoot>
+        <tbody>
+            @foreach (var item in Model.ListaDeClientes)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem=> item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem=> item.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem=> item.Paterno)</td>
+                    <td>@Html.DisplayFor(modelItem=> item.Materno)</td>
+                    <td>@Html.DisplayFor(modelItem=> item.Rfc)</td>
+                    <td>@Html.DisplayFor(modelItem=> item.NumeroDeIdentificacion)</td>
+                    <td>
+                        <a href="~/CuentasDeAhorros/Index?clienteId=@item.Id" class="btn btn-primary">
+                            Ver cuentas
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

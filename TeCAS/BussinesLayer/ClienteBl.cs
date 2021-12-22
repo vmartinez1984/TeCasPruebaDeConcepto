@@ -24,7 +24,10 @@ namespace TeCAS.BussinesLayer
                     Nombre = clienteDto.Nombre,
                     Materno = clienteDto.Materno,
                     FechaDeRegistro = DateTime.Now,
-                    UsuarioId = clienteDto.UsuarioId
+                    UsuarioId = clienteDto.UsuarioId,
+                    Clabe = string.Empty,
+                    Usuario = string.Empty,
+                    Contrasenia = string.Empty
                 };
                 using (var db = new AppDbContext())
                 {

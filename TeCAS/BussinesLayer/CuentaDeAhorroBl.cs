@@ -7,7 +7,7 @@ namespace TeCAS.BussinesLayer
 {
     public class CuentaDeAhorroBl
     {
-        internal static List<CuentaDeAhorroDto> Obtener(int clienteId)
+        internal static List<CuentaDeAhorroDto> ObtenerAsync(int clienteId)
         {
             throw new NotImplementedException();
         }

@@ -21,12 +21,15 @@ namespace TeCAS.Dtos
         [MaxLength(50)]
         public string Materno { get; set; }
 
+        [Required]
         [Display(Name = "RFC")]
         [MaxLength(13)]
         public string Rfc { get; set; }
 
+        [Required]
         [Display(Name = "Número de identificación")]
         [MaxLength(20)]
         public string NumeroDeIdentificacion { get; set; }
+        public int UsuarioId { get; internal set; }
     }
 }

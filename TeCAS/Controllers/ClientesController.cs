@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TeCAS.BussinesLayer;
 using TeCAS.Dtos;
@@ -16,19 +17,30 @@ namespace TeCAS.Controllers
             return View(listaDeClientesDto);
         }
 
-        public async Task<IActionResult> Crear()
+        public IActionResult Agregar()
         {
+            if (HttpContext.Session.GetInt32("usuarioId") is null)
+            {
+                return RedirectToAction("Index", "InicioDeSesion");
+            }
+
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Crear(ClienteDto clienteDto)
+        public async Task<IActionResult> Agregar(ClienteDto clienteDto)
         {
+            if (HttpContext.Session.GetInt32("usuarioId") is null)
+            {
+                return RedirectToAction("Index", "InicioDeSesion");
+            }
+
+            clienteDto.UsuarioId = (int) HttpContext.Session.GetInt32("usuarioId");
             if (ModelState.IsValid)
             {
-                ClienteBl.AgregarAsync(clienteDto);
+                await ClienteBl.AgregarAsync(clienteDto);
 
-                return RedirectToAction();
+                return RedirectToAction(nameof(Index));
             }
             else
             {
