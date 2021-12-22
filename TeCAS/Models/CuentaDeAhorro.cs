@@ -14,6 +14,7 @@ namespace TeCAS.Models
         public int ClienteId { get; set; }
 
         [Required]
+        [MaxLength(20)]
         public string NumeroDeCuenta { get; set; }
 
         [Required]

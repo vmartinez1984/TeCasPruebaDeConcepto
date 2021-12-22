@@ -865,3 +865,5 @@ C:\Users\VMartinez-PCH\source\repos\vmartinez1984\TeCasPruebaDeConcepto\TeCAS\ob
 C:\Users\VMartinez-PCH\source\repos\vmartinez1984\TeCasPruebaDeConcepto\TeCAS\obj\Debug\net5.0\TeCAS.genruntimeconfig.cache
 C:\Users\VMartinez-PCH\Source\Repos\vmartinez1984\TeCasPruebaDeConcepto\TeCAS\obj\Debug\net5.0\Razor\Views\Clientes\Index.cshtml.g.cs
 C:\Users\VMartinez-PCH\Source\Repos\vmartinez1984\TeCasPruebaDeConcepto\TeCAS\obj\Debug\net5.0\Razor\Views\Clientes\Agregar.cshtml.g.cs
+C:\Users\VMartinez-PCH\Source\Repos\vmartinez1984\TeCasPruebaDeConcepto\TeCAS\obj\Debug\net5.0\Razor\Views\CuentaDeAhorroDetalles\Index.cshtml.g.cs
+C:\Users\VMartinez-PCH\Source\Repos\vmartinez1984\TeCasPruebaDeConcepto\TeCAS\obj\Debug\net5.0\Razor\Views\CuentasDeAhorros\Index.cshtml.g.cs

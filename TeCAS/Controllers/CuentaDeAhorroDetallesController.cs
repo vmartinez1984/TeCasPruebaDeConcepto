@@ -12,9 +12,22 @@ namespace TeCAS.Controllers
         {
             List<CuentaDeAhorroDto> lista;
 
-            lista = CuentaDeAhorroBl.ObtenerAsync(clienteId)
+            lista = await CuentaDeAhorroBl.ObtenerAsync(clienteId);
 
-            return View();
+            return View(lista);
+        }
+
+        public IActionResult Agregar(int clienteId)
+        {
+            try
+            {
+                return View();
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
         }
     }
 }
