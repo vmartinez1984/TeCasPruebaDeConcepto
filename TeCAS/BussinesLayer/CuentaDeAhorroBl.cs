@@ -10,7 +10,7 @@ namespace TeCAS.BussinesLayer
 {
     public class CuentaDeAhorroBl
     {
-        internal static async Task<List<CuentaDeAhorroDto>> ObtenerAsync(int clienteId)
+        internal static async Task<List<CuentaDeAhorroDto>> ObtenerListaAsync(int clienteId)
         {
             try
             {
@@ -18,10 +18,10 @@ namespace TeCAS.BussinesLayer
 
                 using (var db = new AppDbContext())
                 {
-                    lista = await db.CuentaDeAhorro.Where(x => x.ClienteId == clienteId)
+                    lista = await db.CuentaDeAhorro.Where(x => x.ClienteId == clienteId && x.EstaActivo == true)
                         .Select(x => new CuentaDeAhorroDto
                         {
-                            Id = x.ClienteId,
+                            Id = x.Id,
                             ClienteId = x.ClienteId,
                             FechaDeRegistro = x.FechaDeRegistro,
                             NumeroDeCuenta = x.NumeroDeCuenta,
@@ -32,6 +32,62 @@ namespace TeCAS.BussinesLayer
                 }
 
                 return lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        internal static async Task<CuentaDeAhorroDto> ObtenerAsync(int cuentaDeAhorroId)
+        {
+            try
+            {
+                CuentaDeAhorroDto cuentaDeAhorro;
+
+                using (var db = new AppDbContext())
+                {
+                    cuentaDeAhorro = await db.CuentaDeAhorro.Where(x => x.Id == cuentaDeAhorroId)
+                        .Select(x => Obtener(x))
+                        .FirstOrDefaultAsync();
+                }
+
+                return cuentaDeAhorro;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static CuentaDeAhorroDto Obtener(CuentaDeAhorro x)
+        {
+            return new CuentaDeAhorroDto
+            {
+                Id = x.ClienteId,
+                ClienteId = x.ClienteId,
+                FechaDeRegistro = x.FechaDeRegistro,
+                NumeroDeCuenta = x.NumeroDeCuenta,
+                SaldoActual = x.SaldoActual,
+                UsuarioId = x.UsuarioId
+            };
+        }
+
+        internal static async Task BorrarAsync(int id)
+        {
+            try
+            {
+                using (var db = new AppDbContext())
+                {
+                    CuentaDeAhorro cuentaDeAhorro;
+
+                    cuentaDeAhorro = await db.CuentaDeAhorro.Where(x => x.Id == id)
+                        .FirstOrDefaultAsync();
+                    cuentaDeAhorro.EstaActivo = false;
+                    await db.SaveChangesAsync();
+                }
             }
             catch (Exception)
             {
@@ -72,11 +128,57 @@ namespace TeCAS.BussinesLayer
             }
         }
 
+        internal static decimal ObtenerSaldoActual(int cuentaDeAhorroId)
+        {
+            try
+            {
+                decimal saldoActual;
+
+                using (var db = new AppDbContext())
+                {
+                    saldoActual = db.CuentaDeAhorro.Where(x => x.Id == cuentaDeAhorroId)
+                        .Select(x => x.SaldoActual)
+                        .FirstOrDefault();
+                }
+
+                return saldoActual;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         private static string ObtenerNumeroDeCuenta(int id)
         {
             try
             {
                 return $"{DateTime.Now.Year} {id.ToString().PadLeft(4, '0')}";
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public static async Task<EstadoDeCuentaDto> ObtenerEstadoDeCuentaAsync(int cuentaDeAhorroId)
+        {
+            try
+            {
+                EstadoDeCuentaDto estadoDeCuentaDto;
+                int clienteId;
+
+                clienteId = ClienteBl.ObtenerId(cuentaDeAhorroId);
+                estadoDeCuentaDto = new EstadoDeCuentaDto
+                {
+                    Cliente = await ClienteBl.ObtenerAsync(clienteId),
+                    CuentaDeAhorro = await ObtenerAsync(cuentaDeAhorroId),
+                    ListaDeTransacciones = await CuentaDeAhorroDetalleBl.ObtenerAsync(cuentaDeAhorroId)
+                };
+
+                return estadoDeCuentaDto;
             }
             catch (Exception)
             {

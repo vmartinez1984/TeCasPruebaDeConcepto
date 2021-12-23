@@ -13,10 +13,13 @@ namespace TeCAS.Models
         public int CuentaDeAhorroId { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal Monto { get; set; }
+                
 
-       [ForeignKey(nameof(CuentaDeAhorroTransaccion))]
+        [ForeignKey(nameof(CuentaDeAhorroTransaccion))]
         public int TransaccionId { get; set; }
+        public virtual CuentaDeAhorroTransaccion Transaccion { get; set; }
 
         public DateTime FechaDeRegistro { get; set; }
 

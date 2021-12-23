@@ -55,23 +55,67 @@ namespace TeCAS.BussinesLayer
 
                 using (var db = new AppDbContext())
                 {
-                    clientes = await db.Cliente
-                    .OrderBy(x => x.Id)
+                    if (string.IsNullOrEmpty(busquedeDeCliente.NumeroDeIdentificacion))
+                    {
+                        clientes = await db.Cliente
+                        .OrderBy(x => x.Id)
                         .Skip((busquedeDeCliente.PaginaActual - 1) * busquedeDeCliente.NumeroDeRegistrosPorPagina)
                         .Take(busquedeDeCliente.NumeroDeRegistrosPorPagina)
                         .ToListAsync();
 
-                    totalDeRegistros = db.Cliente
-                        .Count();
+                        totalDeRegistros = db.Cliente
+                            .Count();
+                    }
+                    else
+                    {
+                        clientes = await db.Cliente
+                        .OrderBy(x => x.Id)
+                        .Where(x => x.NumeroDeIdentificacion == busquedeDeCliente.NumeroDeIdentificacion)
+                            .Skip((busquedeDeCliente.PaginaActual - 1) * busquedeDeCliente.NumeroDeRegistrosPorPagina)
+                            .Take(busquedeDeCliente.NumeroDeRegistrosPorPagina)
+                            .ToListAsync();
+
+                        totalDeRegistros = db.Cliente
+                            .Where(x => x.NumeroDeIdentificacion == busquedeDeCliente.NumeroDeIdentificacion)
+                            .Count();
+                    }
                 }
 
                 listaDeClientes = new ListaDeClientesDto
                 {
-                    BusquedeDeCliente = busquedeDeCliente,
+                    BusquedeDeCliente = new BusquedaDeClienteDto
+                    {
+                        TotalDeRegistros = totalDeRegistros,
+                        PaginaActual = busquedeDeCliente.PaginaActual,
+                        NumeroDeRegistrosPorPagina = busquedeDeCliente.NumeroDeRegistrosPorPagina
+                    },
                     ListaDeClientes = Obtener(clientes)
                 };
 
                 return listaDeClientes;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        internal static int ObtenerId(int cuentaDeAhorroId)
+        {
+            try
+            {
+                int clienteId;
+
+                using (var db = new AppDbContext())
+                {
+                    clienteId = db.CuentaDeAhorro
+                        .Where(x => x.Id == cuentaDeAhorroId)
+                        .Select(x => x.ClienteId)
+                        .FirstOrDefault();
+                }
+
+                return clienteId;
             }
             catch (Exception)
             {
@@ -110,7 +154,7 @@ namespace TeCAS.BussinesLayer
             };
         }
 
-        public static async Task<ClienteDto> Obtener(int clienteId)
+        public static async Task<ClienteDto> ObtenerAsync(int clienteId)
         {
             try
             {

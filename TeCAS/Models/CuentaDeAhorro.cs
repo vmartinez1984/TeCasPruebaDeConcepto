@@ -19,6 +19,7 @@ namespace TeCAS.Models
 
         [Required]
         [Range(0, (double)decimal.MaxValue)]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal SaldoActual { get; set; }
 
         [Required]

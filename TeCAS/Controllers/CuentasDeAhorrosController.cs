@@ -18,7 +18,7 @@ namespace TeCAS.Controllers
 
             List<CuentaDeAhorroDto> lista;
 
-            lista = await CuentaDeAhorroBl.ObtenerAsync(clienteId);
+            lista = await CuentaDeAhorroBl.ObtenerListaAsync(clienteId);
             ViewBag.ClienteId = clienteId;
 
             return View(lista);
@@ -31,9 +31,52 @@ namespace TeCAS.Controllers
                 return RedirectToAction("Index", "InicioDeSesion");
             }
 
-            await CuentaDeAhorroBl.AgregarAsync(clienteId,(int)HttpContext.Session.GetInt32("usuarioId"));
+            await CuentaDeAhorroBl.AgregarAsync(clienteId, (int)HttpContext.Session.GetInt32("usuarioId"));
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "CuentasDeAhorros", new { clienteId = clienteId });
+        }
+
+        public async Task<IActionResult> Borrar(int id)
+        {
+            if (HttpContext.Session.GetInt32("usuarioId") is null)
+            {
+                return RedirectToAction("Index", "InicioDeSesion");
+            }
+
+            try
+            {
+                CuentaDeAhorroDto cuentaDeAhorro;
+
+                cuentaDeAhorro = await CuentaDeAhorroBl.ObtenerAsync(id);
+
+                return View(cuentaDeAhorro);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Borrar(CuentaDeAhorroDto cuentaDeAhorro)
+        {
+            try
+            {
+                if (HttpContext.Session.GetInt32("usuarioId") is null)
+                {
+                    return RedirectToAction("Index", "InicioDeSesion");
+                }
+
+                await CuentaDeAhorroBl.BorrarAsync(cuentaDeAhorro.Id);
+
+                return RedirectToAction("Index", "CuentasDeAhorros", new { clienteId = cuentaDeAhorro.ClienteId });
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

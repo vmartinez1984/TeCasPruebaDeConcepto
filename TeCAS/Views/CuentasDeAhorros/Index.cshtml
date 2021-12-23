@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TeCAS.Dtos.CuentaDeAhorroDto>
+﻿@using System.Globalization
+@model IEnumerable<TeCAS.Dtos.CuentaDeAhorroDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -32,15 +33,15 @@
                     @Html.DisplayFor(modelItem => item.NumeroDeCuenta)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SaldoActual)
+                    @item.SaldoActual.ToString("C", CultureInfo.CreateSpecificCulture("es-MX"))
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaDeRegistro)
                 </td>
                 <td>
-                    @Html.ActionLink("Depositar", "Depositar", new { id=item.Id }) |
-                    @Html.ActionLink("Retirar", "Retirar", new {  id=item.Id }) |
-                    @Html.ActionLink("Estado de cuenta", "EstadoDeCuenta", new {  id=item.Id })
+                    @Html.ActionLink("Depositar", "Depositar", "CuentaDeAhorroDetalles", new { cuentaDeAhorroId = item.Id }) |
+                    @Html.ActionLink("Retirar", "Retirar","CuentaDeAhorroDetalles", new {  cuentaDeAhorroId=item.Id }) |
+                    @Html.ActionLink("Estado de cuenta", "Index","EstadosDeCuenta", new {  cuentaDeAhorroId=item.Id })
                     @if (item.SaldoActual == 0)
                     {
                         <span>|</span>
@@ -52,3 +53,4 @@
         }
     </tbody>
 </table>
+<a href="~/Clientes">Regresar a la lista de clientes</a>
