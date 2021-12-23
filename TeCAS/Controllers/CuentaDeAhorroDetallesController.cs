@@ -87,7 +87,7 @@ namespace TeCAS.Controllers
                     int clienteId;
 
                     cuentaDeAhorroDetalle.UsuarioId = (int)HttpContext.Session.GetInt32("usuarioId");
-                    await CuentaDeAhorroDetalleBl.Depositar(cuentaDeAhorroDetalle);
+                    await CuentaDeAhorroDetalleBl.RetirarAsync(cuentaDeAhorroDetalle);
                     clienteId = ClienteBl.ObtenerId(cuentaDeAhorroDetalle.CuentaDeAhorroId);
 
                     return RedirectToAction("Index", "CuentasDeAhorros", new { clienteId = clienteId });

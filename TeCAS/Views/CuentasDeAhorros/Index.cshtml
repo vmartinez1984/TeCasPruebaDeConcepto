@@ -40,7 +40,7 @@
                 <td>
                     @Html.ActionLink("Depositar", "Depositar", "CuentaDeAhorroDetalles", new { cuentaDeAhorroId = item.Id }) |
                     @Html.ActionLink("Retirar", "Retirar","CuentaDeAhorroDetalles", new {  cuentaDeAhorroId=item.Id }) |
-                    @Html.ActionLink("Estado de cuenta", "EstadoDeCuenta","CuentaDeAhorroDetalles", new {  cuentaDeAhorroId=item.Id })
+                    @Html.ActionLink("Estado de cuenta", "Index","EstadosDeCuenta", new {  cuentaDeAhorroId=item.Id })
                     @if (item.SaldoActual == 0)
                     {
                         <span>|</span>

@@ -18,7 +18,7 @@ namespace TeCAS.Controllers
 
             List<CuentaDeAhorroDto> lista;
 
-            lista = await CuentaDeAhorroBl.ObtenerAsync(clienteId);
+            lista = await CuentaDeAhorroBl.ObtenerListaAsync(clienteId);
             ViewBag.ClienteId = clienteId;
 
             return View(lista);

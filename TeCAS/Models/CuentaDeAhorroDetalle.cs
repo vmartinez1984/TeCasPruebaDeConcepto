@@ -18,6 +18,7 @@ namespace TeCAS.Models
 
        [ForeignKey(nameof(CuentaDeAhorroTransaccion))]
         public int TransaccionId { get; set; }
+        public virtual CuentaDeAhorroTransaccion Transaccion { get; set; }
 
         public DateTime FechaDeRegistro { get; set; }
 

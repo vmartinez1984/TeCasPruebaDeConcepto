@@ -30,6 +30,6 @@ namespace TeCAS.Dtos
         [Display(Name = "Número de identificación")]
         [MaxLength(20)]
         public string NumeroDeIdentificacion { get; set; }
-        public int UsuarioId { get; internal set; }
+        public int UsuarioId { get; internal set; }        
     }
 }

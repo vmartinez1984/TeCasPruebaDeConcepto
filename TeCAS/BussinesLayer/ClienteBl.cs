@@ -133,7 +133,7 @@ namespace TeCAS.BussinesLayer
             };
         }
 
-        public static async Task<ClienteDto> Obtener(int clienteId)
+        public static async Task<ClienteDto> ObtenerAsync(int clienteId)
         {
             try
             {

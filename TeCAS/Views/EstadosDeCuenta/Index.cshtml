@@ -1,0 +1,93 @@
+﻿@using TeCAS.Dtos
+@model TeCAS.Dtos.EstadoDeCuentaDto
+
+@{
+    ViewData["Title"] = "Estado de cuenta";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="text-info">Estado de cuenta</h2>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p>@Model.Cliente.Paterno</p>
+                <p>@Model.Cliente.Materno</p>
+                <p>@Model.Cliente.Nombre</p>
+            </div>
+            <div class="col-md-6">
+                <p>@Model.Cliente.NumeroDeIdentificacion</p>
+                <p>@Model.Cliente.Rfc</p>
+                <p>@Model.CuentaDeAhorro.NumeroDeCuenta</p>
+            </div>
+        </div>
+        <hr />
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="text-primary">Movimientos</h3>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.ListaDeTransacciones[0].FechaDeRegistro)</th>
+                                <th>@Html.DisplayNameFor(model => model.ListaDeTransacciones[0].Monto)</th>
+                                <th>Deposito</th>
+                                <th>Retiro</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.ListaDeTransacciones[0].FechaDeRegistro)</th>
+                                <th>@Html.DisplayNameFor(model => model.ListaDeTransacciones[0].Monto)</th>
+                                <th>Deposito</th>
+                                <th>Retiro</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var item in Model.ListaDeTransacciones)
+                            {
+                                <tr>
+                                    <td>@item.FechaDeRegistro</td>
+                                    <td>@item.Monto</td>
+                                    @if (item.TransaccionId == TransaccionDto.Deposito)
+                                    {
+                                        <td>@item.Monto</td>
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                        <td>@item.Monto</td>
+                                    }
+                                </tr>
+                            }
+                            <tr>
+                                <td>Total de depositos</td>
+                                <td></td>
+                                <td>@Model.ListaDeTransacciones.Where(x=> x.TransaccionId == TransaccionDto.Deposito).Sum(x=>x.Monto)</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Total de retiros</td>
+                                <td></td>
+                                <td></td>
+                                <td>@Model.ListaDeTransacciones.Where(x=> x.TransaccionId == TransaccionDto.Retiro).Sum(x=>x.Monto)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <p>Saldo a la fecha: @DateTime.Now</p>
+        <h2 class="text-info">@Model.CuentaDeAhorro.SaldoActual</h2>
+    </div>
+</div>
+
