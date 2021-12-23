@@ -15,11 +15,11 @@ namespace TeCAS.Validations
             if (cuentaDeAhorroDetalle.TransaccionId == TransaccionDto.Retiro)
             {
                 saldoActual = CuentaDeAhorroBl.ObtenerSaldoActual(cuentaDeAhorroDetalle.CuentaDeAhorroId);
-                if (saldoActual > cuentaDeAhorroDetalle.Monto)
+                if (saldoActual > (decimal)cuentaDeAhorroDetalle.Monto)
                 {
                     return ValidationResult.Success;
                 }
-                else if (saldoActual == cuentaDeAhorroDetalle.Monto)
+                else if (saldoActual == (decimal)cuentaDeAhorroDetalle.Monto)
                 {
                     return ValidationResult.Success;
                 }

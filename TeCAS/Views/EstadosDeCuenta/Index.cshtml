@@ -1,4 +1,5 @@
-﻿@using TeCAS.Dtos
+﻿@using System.Globalization
+@using TeCAS.Dtos
 @model TeCAS.Dtos.EstadoDeCuentaDto
 
 @{
@@ -33,16 +34,14 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>@Html.DisplayNameFor(model => model.ListaDeTransacciones[0].FechaDeRegistro)</th>
-                                <th>@Html.DisplayNameFor(model => model.ListaDeTransacciones[0].Monto)</th>
+                                <th>@Html.DisplayNameFor(model => model.ListaDeTransacciones[0].FechaDeRegistro)</th>                                
                                 <th>Deposito</th>
                                 <th>Retiro</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>@Html.DisplayNameFor(model => model.ListaDeTransacciones[0].FechaDeRegistro)</th>
-                                <th>@Html.DisplayNameFor(model => model.ListaDeTransacciones[0].Monto)</th>
+                                <th>@Html.DisplayNameFor(model => model.ListaDeTransacciones[0].FechaDeRegistro)</th>                                
                                 <th>Deposito</th>
                                 <th>Retiro</th>
                             </tr>
@@ -51,31 +50,28 @@
                             @foreach (var item in Model.ListaDeTransacciones)
                             {
                                 <tr>
-                                    <td>@item.FechaDeRegistro</td>
-                                    <td>@item.Monto</td>
+                                    <td>@item.FechaDeRegistro</td>                                    
                                     @if (item.TransaccionId == TransaccionDto.Deposito)
                                     {
-                                        <td>@item.Monto</td>
+                                        <td>@item.Monto.ToString("C", CultureInfo.CreateSpecificCulture("es-MX"))</td>
                                         <td></td>
                                     }
                                     else
                                     {
                                         <td></td>
-                                        <td>@item.Monto</td>
+                                        <td>@item.Monto.ToString("C", CultureInfo.CreateSpecificCulture("es-MX"))</td>
                                     }
                                 </tr>
                             }
                             <tr>
-                                <td>Total de depositos</td>
-                                <td></td>
-                                <td>@Model.ListaDeTransacciones.Where(x=> x.TransaccionId == TransaccionDto.Deposito).Sum(x=>x.Monto)</td>
+                                <td class="text-info">Total de depositos</td>                                
+                                <td>@Model.ListaDeTransacciones.Where(x=> x.TransaccionId == TransaccionDto.Deposito).Sum(x=>x.Monto).ToString("C", CultureInfo.CreateSpecificCulture("es-MX"))</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>Total de retiros</td>
+                                <td class="text-info">Total de retiros</td>                                
                                 <td></td>
-                                <td></td>
-                                <td>@Model.ListaDeTransacciones.Where(x=> x.TransaccionId == TransaccionDto.Retiro).Sum(x=>x.Monto)</td>
+                                <td>@Model.ListaDeTransacciones.Where(x=> x.TransaccionId == TransaccionDto.Retiro).Sum(x=>x.Monto).ToString("C", CultureInfo.CreateSpecificCulture("es-MX"))</td>
                             </tr>
                         </tbody>
                     </table>
@@ -87,7 +83,7 @@
 
     <div class="card-footer">
         <p>Saldo a la fecha: @DateTime.Now</p>
-        <h2 class="text-info">@Model.CuentaDeAhorro.SaldoActual</h2>
+        <h2 class="text-info">@Model.CuentaDeAhorro.SaldoActual.ToString("C", CultureInfo.CreateSpecificCulture("es-MX"))</h2>
     </div>
 </div>
 

@@ -36,13 +36,24 @@ namespace TeCAS.Controllers
                 {
                     return RedirectToAction("Index", "InicioDeSesion");
                 }
-                int clienteId;
+                
+                if (ModelState.IsValid)
+                {
 
-                cuentaDeAhorroDetalle.UsuarioId = (int)HttpContext.Session.GetInt32("usuarioId");
-                await CuentaDeAhorroDetalleBl.Depositar(cuentaDeAhorroDetalle);
-                clienteId = ClienteBl.ObtenerId(cuentaDeAhorroDetalle.CuentaDeAhorroId);
+                    int clienteId;
 
-                return RedirectToAction("Index", "CuentasDeAhorros", new { clienteId = clienteId });
+                    cuentaDeAhorroDetalle.UsuarioId = (int)HttpContext.Session.GetInt32("usuarioId");
+                    await CuentaDeAhorroDetalleBl.Depositar(cuentaDeAhorroDetalle);
+                    clienteId = ClienteBl.ObtenerId(cuentaDeAhorroDetalle.CuentaDeAhorroId);
+
+                    return RedirectToAction("Index", "CuentasDeAhorros", new { clienteId = clienteId });
+                }
+                else
+                {
+                    ViewBag.ClienteId = ClienteBl.ObtenerId(cuentaDeAhorroDetalle.CuentaDeAhorroId);
+
+                    return View(new CuentaDeAhorroDetalleDto { CuentaDeAhorroId = cuentaDeAhorroDetalle.CuentaDeAhorroId });
+                }
             }
             catch (System.Exception)
             {

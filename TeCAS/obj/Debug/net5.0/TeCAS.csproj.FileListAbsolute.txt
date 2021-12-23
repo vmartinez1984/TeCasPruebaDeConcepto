@@ -1307,3 +1307,4 @@ C:\Users\vmartinez\Source\Repos\vmartinez1984\TeCasPruebaDeConcepto\TeCAS\obj\De
 C:\Users\vmartinez\Source\Repos\vmartinez1984\TeCasPruebaDeConcepto\TeCAS\obj\Debug\net5.0\Razor\Views\CuentaDeAhorroDetalles\Depositar.cshtml.g.cs
 C:\Users\vmartinez\Source\Repos\vmartinez1984\TeCasPruebaDeConcepto\TeCAS\obj\Debug\net5.0\Razor\Views\CuentaDeAhorroDetalles\Retirar.cshtml.g.cs
 C:\Users\vmartinez\Source\Repos\vmartinez1984\TeCasPruebaDeConcepto\TeCAS\obj\Debug\net5.0\Razor\Views\EstadosDeCuenta\Index.cshtml.g.cs
+C:\Users\vmartinez\Source\Repos\vmartinez1984\TeCasPruebaDeConcepto\TeCAS\obj\Debug\net5.0\Razor\Views\CuentasDeAhorros\Borrar.cshtml.g.cs

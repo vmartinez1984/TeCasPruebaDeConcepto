@@ -97,13 +97,7 @@ namespace TeCAS.BussinesLayer
                     lista = await db.CuentaDeAhorroDetalle
                         .Include(x => x.Transaccion)
                         .Where(x => x.CuentaDeAhorroId == cuentaDeAhorroId)
-                        .Select(x => new CuentaDeAhorroDetalleDto
-                        {
-                            CuentaDeAhorroId = x.CuentaDeAhorroId,
-                            Monto = x.Monto,
-                            TransaccionId = x.TransaccionId,
-                            FechaDeRegistro = x.FechaDeRegistro
-                        })
+                        .Select(x => Obtener(x))
                         .ToListAsync();
                 }
 
@@ -114,6 +108,17 @@ namespace TeCAS.BussinesLayer
 
                 throw;
             }
+        }
+
+        private static CuentaDeAhorroDetalleDto Obtener(CuentaDeAhorroDetalle x)
+        {
+            return new CuentaDeAhorroDetalleDto
+            {
+                CuentaDeAhorroId = x.CuentaDeAhorroId,
+                Monto = (double)x.Monto,
+                TransaccionId = x.TransaccionId,
+                FechaDeRegistro = x.FechaDeRegistro
+            };
         }
     }
 }

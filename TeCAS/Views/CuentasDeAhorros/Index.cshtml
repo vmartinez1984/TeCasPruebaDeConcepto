@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TeCAS.Dtos.CuentaDeAhorroDto>
+﻿@using System.Globalization
+@model IEnumerable<TeCAS.Dtos.CuentaDeAhorroDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -32,7 +33,7 @@
                     @Html.DisplayFor(modelItem => item.NumeroDeCuenta)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SaldoActual)
+                    @item.SaldoActual.ToString("C", CultureInfo.CreateSpecificCulture("es-MX"))
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaDeRegistro)

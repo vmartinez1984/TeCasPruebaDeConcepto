@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using TeCAS.BussinesLayer;
 using TeCAS.Validations;
 
 namespace TeCAS.Dtos
@@ -10,10 +11,23 @@ namespace TeCAS.Dtos
         public int CuentaDeAhorroId { get; set; }
 
         [Required]
-        [Range(1, (double)decimal.MaxValue)]
-        [DataType(DataType.Currency)]
+        //[Range(1, (double)decimal.MaxValue)]
+        //[DataType(DataType.Currency)]
         [ValidarRetiroYSaldoAttribute]
-        public decimal Monto { get; set; }
+        public double Monto
+        {
+            get { return string.IsNullOrEmpty(MontoFormateado)? monto: MontoBl.Obtener(MontoFormateado); }
+            set { monto = value; }
+        }
+        private double monto;
+
+        [Required]
+        [MaxLength(10)]
+        [ValidarMonto]
+        [Display(Name ="Monto")]
+        public string MontoFormateado { get; set; }
+
+
         [Required]
         public int UsuarioId { get; set; }
 

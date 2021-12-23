@@ -18,10 +18,10 @@ namespace TeCAS.BussinesLayer
 
                 using (var db = new AppDbContext())
                 {
-                    lista = await db.CuentaDeAhorro.Where(x => x.ClienteId == clienteId)
+                    lista = await db.CuentaDeAhorro.Where(x => x.ClienteId == clienteId && x.EstaActivo == true)
                         .Select(x => new CuentaDeAhorroDto
                         {
-                            Id = x.ClienteId,
+                            Id = x.Id,
                             ClienteId = x.ClienteId,
                             FechaDeRegistro = x.FechaDeRegistro,
                             NumeroDeCuenta = x.NumeroDeCuenta,
@@ -40,7 +40,7 @@ namespace TeCAS.BussinesLayer
             }
         }
 
-        internal static async Task<CuentaDeAhorroDto> ObtenerAsync(int clienteId)
+        internal static async Task<CuentaDeAhorroDto> ObtenerAsync(int cuentaDeAhorroId)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace TeCAS.BussinesLayer
 
                 using (var db = new AppDbContext())
                 {
-                    cuentaDeAhorro = await db.CuentaDeAhorro.Where(x => x.ClienteId == clienteId)
+                    cuentaDeAhorro = await db.CuentaDeAhorro.Where(x => x.Id == cuentaDeAhorroId)
                         .Select(x => Obtener(x))
                         .FirstOrDefaultAsync();
                 }
@@ -73,6 +73,27 @@ namespace TeCAS.BussinesLayer
                 SaldoActual = x.SaldoActual,
                 UsuarioId = x.UsuarioId
             };
+        }
+
+        internal static async Task BorrarAsync(int id)
+        {
+            try
+            {
+                using (var db = new AppDbContext())
+                {
+                    CuentaDeAhorro cuentaDeAhorro;
+
+                    cuentaDeAhorro = await db.CuentaDeAhorro.Where(x => x.Id == id)
+                        .FirstOrDefaultAsync();
+                    cuentaDeAhorro.EstaActivo = false;
+                    await db.SaveChangesAsync();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         internal static async Task<int> AgregarAsync(int clienteId, int usuarioId)
