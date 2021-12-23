@@ -25,8 +25,8 @@ namespace TeCAS.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=VMARTINEZ-PCH;Database=Tecas;User Id=sa;Password=123456;");
-                //optionsBuilder.UseSqlServer("Server=DESKTOP-9CVRRTC\\SQLEXPRESS;Database=RollCall;User Id=sa;Password=123456;");
+                //optionsBuilder.UseSqlServer("Server=VMARTINEZ-PCH;Database=Tecas;User Id=sa;Password=123456;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-9CVRRTC\\SQLEXPRESS;Database=RollCall;User Id=sa;Password=123456;");
                 //optionsBuilder.UseSqlServer("workstation id=ProyectoDeIntegracion.mssql.somee.com;packet size=4096;user id=vmartinez84_SQLLogin_2;pwd=3ciwfqn2az;data source=ProyectoDeIntegracion.mssql.somee.com;persist security info=False;initial catalog=ProyectoDeIntegracion");
             }
         }

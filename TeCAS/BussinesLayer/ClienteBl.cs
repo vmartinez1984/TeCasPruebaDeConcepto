@@ -80,6 +80,29 @@ namespace TeCAS.BussinesLayer
             }
         }
 
+        internal static int ObtenerId(int cuentaDeAhorroId)
+        {
+            try
+            {
+                int clienteId;
+
+                using (var db = new AppDbContext())
+                {
+                    clienteId = db.CuentaDeAhorro
+                        .Where(x=> x.Id == cuentaDeAhorroId)
+                        .Select(x => x.ClienteId)
+                        .FirstOrDefault();
+                }
+
+                return clienteId;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         private static List<ClienteDto> Obtener(List<Cliente> clientes)
         {
             List<ClienteDto> clienteDtos;

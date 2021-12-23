@@ -38,9 +38,9 @@
                     @Html.DisplayFor(modelItem => item.FechaDeRegistro)
                 </td>
                 <td>
-                    @Html.ActionLink("Depositar", "Depositar", new { id=item.Id }) |
-                    @Html.ActionLink("Retirar", "Retirar", new {  id=item.Id }) |
-                    @Html.ActionLink("Estado de cuenta", "EstadoDeCuenta", new {  id=item.Id })
+                    @Html.ActionLink("Depositar", "Depositar", "CuentaDeAhorroDetalles", new { cuentaDeAhorroId = item.Id }) |
+                    @Html.ActionLink("Retirar", "Retirar","CuentaDeAhorroDetalles", new {  cuentaDeAhorroId=item.Id }) |
+                    @Html.ActionLink("Estado de cuenta", "EstadoDeCuenta","CuentaDeAhorroDetalles", new {  cuentaDeAhorroId=item.Id })
                     @if (item.SaldoActual == 0)
                     {
                         <span>|</span>

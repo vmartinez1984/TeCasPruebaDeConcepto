@@ -1,0 +1,37 @@
+﻿@using TeCAS.Dtos
+@model TeCAS.Dtos.CuentaDeAhorroDetalleDto
+
+@{
+    ViewData["Title"] = "Retirar";
+}
+
+<h1>Retirar</h1>
+
+<h4 class="text-success">Saldo actual: @ViewBag.SaldoActual</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Retirar">
+            <input type="hidden" asp-for="TransaccionId" value="@TransaccionDto.Retiro"/>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CuentaDeAhorroId" class="form-control" />
+            <div class="form-group">
+                <label asp-for="Monto" class="control-label"></label>
+                <input asp-for="Monto" class="form-control" type="number" min="1" max="@ViewBag.SaldoActual" step="0.01"/>
+                <span asp-validation-for="Monto" class="text-danger"></span>
+            </div>
+         
+            <div class="form-group">
+                <input type="submit" value="Retirar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="~/CuentasDeAhorros/Index?clienteId=@ViewBag.ClienteId" >Regresar</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

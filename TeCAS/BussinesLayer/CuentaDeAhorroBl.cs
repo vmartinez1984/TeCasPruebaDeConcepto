@@ -72,6 +72,28 @@ namespace TeCAS.BussinesLayer
             }
         }
 
+        internal static decimal ObtenerSaldoActual(int cuentaDeAhorroId)
+        {
+            try
+            {
+                decimal saldoActual;
+
+                using (var db = new AppDbContext())
+                {
+                    saldoActual = db.CuentaDeAhorro.Where(x => x.Id == cuentaDeAhorroId)
+                        .Select(x => x.SaldoActual)
+                        .FirstOrDefault();
+                }
+
+                return saldoActual;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         private static string ObtenerNumeroDeCuenta(int id)
         {
             try
